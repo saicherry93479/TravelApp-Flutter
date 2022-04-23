@@ -1,16 +1,12 @@
 # travelapp
 
-A new Flutter project.
+TravelAPP UI Design implemented in FLUTTER
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+<h1>Screens</h1>
 
-A few resources to get you started if this is your first Flutter project:
+<img  width='300px' src='https://user-images.githubusercontent.com/70464077/164884183-5632063c-02d0-4b3d-8f44-1d699c2a26b6.jpg' >
+<img  width='300px' src='https://user-images.githubusercontent.com/70464077/164884187-482fd73a-ea40-403e-b495-3b0f217faa94.jpg' >
+<img  width='300px' src='https://user-images.githubusercontent.com/70464077/164884186-95997383-20df-42cd-9614-7a03457a2609.jpg' >
+<img  width='300px' src='https://user-images.githubusercontent.com/70464077/164884185-c080af14-af28-403a-91c9-320ba0cfabff.jpg' >
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
