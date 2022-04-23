@@ -15,6 +15,12 @@ class FlightBookScreen extends StatefulWidget {
 class _FlightBookScreenState extends State<FlightBookScreen> {
   bool click = false;
 
+  void clickFunction() {
+    setState(() {
+      click = !click;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,52 +69,8 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                 children: [
                   Transform.translate(
                     offset: Offset(0, -30),
-                    child: Container(
-                      padding: EdgeInsets.all(getScreenWidth(context, 20)),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: Colors.white,
-                          boxShadow: [
-                            boxShadow(Colors.grey.withOpacity(0.3), 1.4, 4.0,
-                                0.0, 0.0)
-                          ]),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Round Trip',
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0XFF707070)),
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    click = !click;
-                                  });
-                                },
-                                child: Container(
-                                  height: 28,
-                                  width: 28,
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                      'assets/images/check-solid.svg',
-                                      height: 20,
-                                      width: 20,
-                                      color: click ? Colors.white : mainColor,
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: click
-                                          ? mainColor
-                                          : Colors.transparent,
-                                      border: Border.all(
-                                          width: 1, color: mainColor),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(50),
-                                      )),
-                                ))
-                          ]),
-                    ),
+                    child: HoverBox(
+                        context, clickFunction, click, true, 'Round Trip'),
                   ),
                   Stack(
                     children: [
@@ -163,127 +125,13 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                   SizedBox(
                     height: getScreenHeight(context, 20),
                   ),
-                  GestureDetector(
-                    child: Container(
-                      margin:
-                          EdgeInsets.only(top: getScreenHeight(context, 10)),
-                      padding: EdgeInsets.all(getScreenWidth(context, 20)),
-                      decoration: BoxDecoration(
-                          color: Color(0XFF252525),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Center(
-                          child: Text(
-                        'SEARCH FLIGHTS',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            letterSpacing: 2),
-                      )),
-                    ),
-                  )
+                  SeachButton(context, "SEARCH FLIGHTS")
                 ],
               ),
             ),
           ),
         ),
       ]),
-    );
-  }
-
-  Container FightMethod(BuildContext context, svg, head, subhead) {
-    return Container(
-      padding: EdgeInsets.all(getScreenWidth(context, 10)),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: Colors.white,
-          boxShadow: [
-            boxShadow(Colors.grey.withOpacity(0.24), 1.4, 4.0, 0.0, 0.0)
-          ]),
-      child: Row(children: [
-        ItemCon(svg),
-        SizedBox(
-          width: getScreenWidth(context, 20),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              head,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 127, 127, 127),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w200),
-            ),
-            SizedBox(
-              height: getScreenHeight(context, 2),
-            ),
-            Text(
-              subhead,
-              style: TextStyle(
-                  color: Color(0XFF252525),
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-        Spacer(),
-        SvgPicture.asset(
-          'assets/images/Down.svg',
-          height: 8,
-          width: 8,
-          color: Colors.black38,
-        )
-      ]),
-    );
-  }
-
-  Container DateItem(BuildContext context, header, subHeader) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: getScreenWidth(context, 10),
-          horizontal: getScreenWidth(context, 20)),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(14)),
-          color: Colors.white,
-          boxShadow: [
-            boxShadow(Colors.grey.withOpacity(0.24), 1.4, 4.0, 0.0, 0.0)
-          ]),
-      child: Row(
-        children: [
-          ItemCon('assets/images/calendar.svg'),
-          SizedBox(
-            width: getScreenWidth(context, 20),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                header,
-                style: TextStyle(color: Color(0XFF707070)),
-              ),
-              SizedBox(
-                height: getScreenHeight(context, 2),
-              ),
-              Text(subHeader)
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Container ItemCon(svg) {
-    return Container(
-      height: 40,
-      width: 40,
-      // padding: EdgeInsets.all(getScreenWidth(context, 8)),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.white,
-          boxShadow: [
-            boxShadow(Colors.grey.withOpacity(0.2), 1.4, 4.0, 0.0, 0.0),
-          ]),
-      child: Center(child: SvgPicture.asset(svg)),
     );
   }
 
@@ -316,4 +164,165 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
       ),
     );
   }
+}
+
+Container DateItem(BuildContext context, header, subHeader) {
+  return Container(
+    padding: EdgeInsets.symmetric(
+        vertical: getScreenWidth(context, 10),
+        horizontal: getScreenWidth(context, 20)),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+        color: Colors.white,
+        boxShadow: [
+          boxShadow(Colors.grey.withOpacity(0.24), 1.4, 4.0, 0.0, 0.0)
+        ]),
+    child: Row(
+      children: [
+        ItemCon('assets/images/calendar.svg'),
+        SizedBox(
+          width: getScreenWidth(context, 20),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              header,
+              style: TextStyle(color: Color(0XFF707070)),
+            ),
+            SizedBox(
+              height: getScreenHeight(context, 2),
+            ),
+            Text(subHeader)
+          ],
+        )
+      ],
+    ),
+  );
+}
+
+Container ItemCon(svg) {
+  return Container(
+    height: 40,
+    width: 40,
+    // padding: EdgeInsets.all(getScreenWidth(context, 8)),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white,
+        boxShadow: [
+          boxShadow(Colors.grey.withOpacity(0.2), 1.4, 4.0, 0.0, 0.0),
+        ]),
+    child: Center(child: SvgPicture.asset(svg)),
+  );
+}
+
+Container FightMethod(BuildContext context, svg, head, subhead) {
+  return Container(
+    padding: EdgeInsets.all(getScreenWidth(context, 10)),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        color: Colors.white,
+        boxShadow: [
+          boxShadow(Colors.grey.withOpacity(0.24), 1.4, 4.0, 0.0, 0.0)
+        ]),
+    child: Row(children: [
+      ItemCon(svg),
+      SizedBox(
+        width: getScreenWidth(context, 20),
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            head,
+            style: TextStyle(
+                color: Color.fromARGB(255, 127, 127, 127),
+                fontSize: 14,
+                fontWeight: FontWeight.w200),
+          ),
+          SizedBox(
+            height: getScreenHeight(context, 2),
+          ),
+          subhead == ""
+              ? SizedBox()
+              : Text(
+                  subhead,
+                  style: TextStyle(
+                      color: Color(0XFF252525),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                )
+        ],
+      ),
+      Spacer(),
+      SvgPicture.asset(
+        'assets/images/Down.svg',
+        height: 8,
+        width: 8,
+        color: Colors.black38,
+      )
+    ]),
+  );
+}
+
+GestureDetector SeachButton(BuildContext context, tex) {
+  return GestureDetector(
+    child: Container(
+      margin: EdgeInsets.only(top: getScreenHeight(context, 10)),
+      padding: EdgeInsets.all(getScreenWidth(context, 20)),
+      decoration: BoxDecoration(
+          color: Color(0XFF252525),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: Center(
+          child: Text(
+        tex,
+        style: TextStyle(fontSize: 16, color: Colors.white, letterSpacing: 2),
+      )),
+    ),
+  );
+}
+
+Container HoverBox(BuildContext context, clickFunction, click, ok, tex) {
+  return Container(
+    padding: EdgeInsets.all(getScreenWidth(context, 20)),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        color: Colors.white,
+        boxShadow: [
+          boxShadow(Colors.grey.withOpacity(0.3), 1.4, 4.0, 0.0, 0.0)
+        ]),
+    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text(
+        tex,
+        style: TextStyle(fontSize: 16, color: Color(0XFF707070)),
+      ),
+      ok
+          ? GestureDetector(
+              onTap: clickFunction,
+              child: Container(
+                height: 28,
+                width: 28,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/check-solid.svg',
+                    height: 20,
+                    width: 20,
+                    color: click ? Colors.white : mainColor,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    color: click ? mainColor : Colors.transparent,
+                    border: Border.all(width: 1, color: mainColor),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    )),
+              ))
+          : SvgPicture.asset(
+              'assets/images/Map.svg',
+              height: 20,
+              width: 20,
+              color: mainColor,
+            ),
+    ]),
+  );
 }

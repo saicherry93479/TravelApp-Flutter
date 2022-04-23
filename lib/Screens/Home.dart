@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:travelapp/Screens/BookHotel.dart';
 import 'package:travelapp/Screens/ItemWidget.dart';
 import 'package:travelapp/Screens/OnBoard.dart';
 import 'package:travelapp/utilsMain.dart';
@@ -19,10 +20,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int current = 0;
-  int currentPage = 0;
+
   void flightFucntion() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (Context) => FlightBookScreen()));
+  }
+
+  void hotelFucntion() {
+    print('clicked');
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (Context) => HotelScreen()));
   }
 
   @override
@@ -78,135 +85,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: data[current]
-                          .map<Widget>((e) => GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ItemScreen(item: e)),
-                                  );
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                    right: getScreenWidth(context, 20),
-                                  ),
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  padding: EdgeInsets.all(
-                                      getScreenWidth(context, 14)),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16)),
-                                    boxShadow: [
-                                      boxShadow(Colors.grey.withOpacity(0.1),
-                                          1.0, 5.0, 0.0, 0.0),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(16)),
-                                            child: Image(
-                                              image: AssetImage(e.image),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            right: 10,
-                                            top: 10,
-                                            child: Container(
-                                              padding: EdgeInsets.all(4),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(10)),
-                                                  color: Colors.white),
-                                              child: Text('⭐ ${e.rating}'),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Text(
-                                        e.name,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                          height: getScreenHeight(context, 10)),
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/images/Map.svg'),
-                                          SizedBox(
-                                            width: getScreenWidth(context, 10),
-                                          ),
-                                          Text(
-                                            e.place,
-                                            style: TextStyle(
-                                                color: Color(0XFF707070)),
-                                          ),
-                                          Spacer(),
-                                          Text('${e.price}/night')
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ))
+                          .map<Widget>((e) => MainItem(context, e))
                           .toList(),
                     ),
                   ),
                 ],
               ),
-              Container(
-                padding: EdgeInsets.all(
-                  getScreenWidth(context, 14),
-                ),
-                margin: EdgeInsets.only(bottom: getScreenHeight(context, 15)),
-                decoration: BoxDecoration(
-                  color: Color(0XFF252525),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(24),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: BottomItems.map((e) => GestureDetector(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              SvgPicture.asset(e.image),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    top: getScreenHeight(context, 6)),
-                                height: 4,
-                                width: 7,
-                                decoration: BoxDecoration(
-                                    color: e.index == currentPage
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4))),
-                              )
-                            ],
-                          ),
-                        ),
-                      )).toList(),
-                ),
-              ),
-              // SizedBox(
-              //   height: getScreenHeight(context, 1),
-              // )
+              // Container(
+              //   padding: EdgeInsets.all(
+              //     getScreenWidth(context, 14),
+              //   ),
+              //   margin: EdgeInsets.only(bottom: getScreenHeight(context, 15)),
+              //   decoration: BoxDecoration(
+              //     color: Color(0XFF252525),
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(24),
+              //     ),
+              //   ),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //     children: BottomItems.map((e) => BottomBarItem(e, context))
+              //         .toList(),
+              //   ),
+              // ),
+              SizedBox(
+                height: getScreenHeight(context, 1),
+              )
             ],
           ),
         ),
@@ -258,6 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: () {
             if (name == 'Flight') {
               flightFucntion();
+            }
+            if (name == 'Hotel') {
+              hotelFucntion();
             }
           },
           child: Container(
@@ -331,3 +238,76 @@ BoxShadow boxShadow(color, spreadRadius, blurRadius, x, y) {
     offset: Offset(x, y), // changes position of shadow
   );
 }
+
+GestureDetector MainItem(BuildContext context, e) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => ItemScreen(item: e)),
+      );
+    },
+    child: Container(
+      margin: EdgeInsets.only(
+        right: getScreenWidth(context, 20),
+      ),
+      width: MediaQuery.of(context).size.width / 1.5,
+      height: MediaQuery.of(context).size.height * 0.35,
+      padding: EdgeInsets.all(getScreenWidth(context, 14)),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        boxShadow: [
+          boxShadow(Colors.grey.withOpacity(0.1), 1.0, 5.0, 0.0, 0.0),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                child: Image(
+                  image: AssetImage(e.image),
+                ),
+              ),
+              Positioned(
+                right: 10,
+                top: 10,
+                child: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Colors.white),
+                  child: Text('⭐ ${e.rating}'),
+                ),
+              )
+            ],
+          ),
+          Text(
+            e.name,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: getScreenHeight(context, 10)),
+          Row(
+            children: [
+              SvgPicture.asset('assets/images/Map.svg'),
+              SizedBox(
+                width: getScreenWidth(context, 10),
+              ),
+              Text(
+                e.place,
+                style: TextStyle(color: Color(0XFF707070)),
+              ),
+              Spacer(),
+              Text('${e.price}/night')
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+

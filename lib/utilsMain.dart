@@ -153,12 +153,74 @@ List Featured = [
 class BottomItem {
   String image;
   int index;
-  BottomItem({required this.image, required this.index});
+  String imageTwo;
+  BottomItem(
+      {required this.image, required this.index, required this.imageTwo});
 }
 
 List BottomItems = [
-  BottomItem(image: 'assets/images/Home.svg', index: 0),
-  BottomItem(image: 'assets/images/Heart.svg', index: 1),
-  BottomItem(image: 'assets/images/Bell.svg', index: 2),
-  BottomItem(image: 'assets/images/People.svg', index: 3)
+  BottomItem(
+      image: 'assets/images/Home.svg',
+      index: 0,
+      imageTwo: 'assets/images/HomeActive.svg'),
+  BottomItem(
+      image: 'assets/images/Heart.svg',
+      index: 1,
+      imageTwo: 'assets/images/HeartActive.svg'),
+  BottomItem(
+      image: 'assets/images/Bell.svg',
+      index: 2,
+      imageTwo: 'assets/images/BellActive.svg'),
+  BottomItem(
+      image: 'assets/images/People.svg',
+      index: 3,
+      imageTwo: 'assets/images/PeopleActive.svg')
+];
+
+List recommendedHotels = [
+  ScrollItem(
+      image: 'assets/images/HotelOne.jpg',
+      name: 'Hilton One',
+      place: 'Cairo,Egypy',
+      price: '\$153',
+      rating: '3.6',
+      days: 2,
+      desc:
+          "Hotel located on the east bank of the Nile River in the historical quarter of Garden City... "),
+  ScrollItem(
+      image: 'assets/images/HotelTwo.jpg',
+      name: 'Hotel Two',
+      place: 'Cairo,Egypy',
+      price: '\$513',
+      rating: '4.3',
+      desc:
+          "Hotel located on the east bank of the Nile River in the historical quarter of Garden City... ",
+      days: 5),
+  ScrollItem(
+      image: 'assets/images/HotelThree.jpg',
+      name: 'Hotel Three',
+      place: 'Cairo,Egypy',
+      price: '\$248',
+      rating: '4.2',
+      desc:
+          "Hotel located on the east bank of the Nile River in the historical quarter of Garden City... ",
+      days: 1),
+  ScrollItem(
+      image: 'assets/images/HotelFour.jpg',
+      name: 'Hotel Four',
+      place: 'Cairo,Egypy',
+      price: '\$148',
+      rating: '4.2',
+      desc:
+          "Hotel located on the east bank of the Nile River in the historical quarter of Garden City... ",
+      days: 2),
+  ScrollItem(
+      image: 'assets/images/HotelThree.jpg',
+      name: 'Hotel Five',
+      place: 'Cairo,Egypy',
+      price: '\$786',
+      rating: '4.2',
+      desc:
+          "Hotel located on the east bank of the Nile River in the historical quarter of Garden City... ",
+      days: 10),
 ];

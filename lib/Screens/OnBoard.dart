@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travelapp/Screens/Home.dart';
+import 'package:travelapp/Screens/HomeBoard.dart';
 import 'package:travelapp/utilsMain.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -85,7 +86,7 @@ class OnBoardScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
+                            builder: (context) => HomeBoardScreen(),
                           ),
                         );
                       },
